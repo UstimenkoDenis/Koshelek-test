@@ -1,25 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+
 import './App.css';
+import Landing from './Components/Layout/Landing';
+import lazyComponentLoader from './Hocs/LazyLoader';
+
+const AsyncTable = lazyComponentLoader(() => import('./Components/table_page/Table_page'));
+const AsyncInput = lazyComponentLoader(() => import('./Components/input_page/Input_page'));
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Landing/> 
+        <Switch>
+          <Route path='/table' component={AsyncTable}/>
+          <Route path='/input' component={AsyncInput}/>
+        </Switch>
+      </div>
+    </Router>    
   );
 }
 
