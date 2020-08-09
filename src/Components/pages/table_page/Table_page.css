@@ -1,0 +1,13 @@
+.table-wrapper {
+    height: 300px;
+    overflow-y: scroll;  
+}
+   
+.table__header_fixed th {
+    position: sticky;
+    top: 0;
+    background-color: #60a9ca;
+}
+
+
+

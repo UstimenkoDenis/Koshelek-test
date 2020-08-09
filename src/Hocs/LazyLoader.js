@@ -16,7 +16,7 @@ const lazyLoader = (importComponent) => {
         render () {
             const CustComponent = this.state.component;
 
-            return CustComponent ? <CustComponent {...this.props} /> : null;
+            return CustComponent ? <CustComponent {...this.props}  /> : null;
         }
     }
 }
