@@ -1,0 +1,25 @@
+{
+    "binance": [
+        {
+            "amount": 90, 
+            "price": 70
+        },
+        {
+            "amount": 90, 
+            "price": 70
+        },
+        {
+            "amount": 90, 
+            "price": 70
+        },
+        {
+            "amount": 90, 
+            "price": 70
+        },
+        {
+            "amount": 90, 
+            "price": 70
+        }       
+    ]
+
+}

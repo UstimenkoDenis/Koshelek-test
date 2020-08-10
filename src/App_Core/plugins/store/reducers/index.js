@@ -1,24 +1,30 @@
 const initialState = {
-   
+   data: [],
+   loading: true,
+   error: false,
  }
  
  const reducer = (state = initialState, action) => {
-     switch (action.type) {
-         case '':
-            return {                
- 
-             }
-         case '' :         
+    switch (action.type) {
+        case 'DATA_LOADED':
+        return {                
+                data: action.payload,
+                loading: false,
+                error: false
+            }               
+        case 'DATA_REQUESTED' :        
             return {
-                 
-             }
-         case '': 
+                data: state.data,
+                loading: true,
+                error: false
+            }
+        case 'DATA_ERROR': 
             return {
-                
-             }
-         default:
-            return state;
-     }
- 
+                ...state,
+                error: true
+            }   
+        default:
+        return state;
+    } 
  }
  export default reducer;
