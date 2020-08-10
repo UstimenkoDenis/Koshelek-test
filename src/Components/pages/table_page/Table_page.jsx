@@ -5,9 +5,14 @@ import App_Core from '../../../App_Core/App_Core';
 import WithSDK from '../../../Hocs/withSDK';
 import {dataLoaded, dataRequested, dataError} from '../../../App_Core/plugins/store/actions/index';
 import {connect} from 'react-redux';
+import Spinner from '../../spinner';
+import Error from '../../error';
 
 class Table_page extends Component {   
-    componentDidMount() {     
+    componentDidMount() {    
+        
+        this.props.dataRequested();  
+
         const {SDK} = this.props; 
 
         SDK.getData()
@@ -19,7 +24,16 @@ class Table_page extends Component {
     render() {
         
         const { dataItems, loading, error } = this.props;
-       
+
+        if(error){
+            return (
+                <Error/>
+            )
+        }
+        if(loading){
+            return <Spinner/>
+        }
+
         return (   
             <>
                 <App_Core store="true" SDK="true"/>
