@@ -14,30 +14,33 @@ class Table_page extends Component {
         this.props.dataRequested();  
 
         const {SDK} = this.props; 
-
+        // console.log(this.props)
+        
         SDK.getData()
-            .then(res => this.props.dataLoaded(res)) 
-            .catch(error => this.props.dataError());
+        .then(res => this.props.dataLoaded(res)) 
+        .catch(error => this.props.dataError());        
+
+        // fetch('https://api.binance.com/api/v3/depth?symbol=BNBBTC&limit=500')          
+        //     .then( (response) => response.json() )
+        //     .then ( json => console.log(json) )
 
     }
 
     render() {
         
         const { dataItems, loading, error } = this.props;
+        const { asks, bids } = dataItems;
 
+        console.log(dataItems)
         if(error){
             return (
                 <Error/>
             )
         }
-        if(loading){
-            return <Spinner/>
-        }
-
+       
         return (   
-            <>
-                <App_Core store="true" SDK="true"/>
-    
+            <>  
+                { (loading)? <Spinner/>:                  
                 <div className="table-wrapper">
                     <Table className="table" striped bordered hover>           
                         <thead className="table__header table__header_fixed">
@@ -51,11 +54,11 @@ class Table_page extends Component {
                             </tr>
                         </thead>                
                         <tbody className="table__body">  
-                            { dataItems.map( (item, i) => {
+                            { bids.map( (item, i) => {
                                 return (
                                     <tr key={i}>
-                                        <td width="16%">{item.amount}</td>
-                                        <td width="16%">{item.price}</td>
+                                        <td width="16%">{item[0]}</td>
+                                        <td width="16%">{item[1]}</td>
                                         <td className="d-none d-lg-block width='16%'" >{item.amount*item.price}</td>
                                         <td width="16%"></td>
                                         <td width="16%"></td>
@@ -64,7 +67,7 @@ class Table_page extends Component {
                             })}                             
                         </tbody>              
                     </Table> 
-                </div> 
+                </div> }
             </>
         )
     };       
@@ -73,6 +76,7 @@ class Table_page extends Component {
 const mapStateToProps = (state) => {
     return {
         dataItems: state.data,
+        currentSymbol: state.currentSymbol,
         loading: state.loading,
         error: state.error
     }

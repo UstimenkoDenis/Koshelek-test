@@ -1,16 +1,18 @@
 export default class SDK {
-    _apiBase = 'http://localhost:3000';
-
-    async getResource (url) {
+    constructor() {
+        this._apiBase = 'https://api.binance.com'
+    }
+    
+    getResource = async (url) => {
             const res = await fetch(`${this._apiBase}${url}`);
 
             if (!res.ok){
-                throw new Error(`Could not fetch ${url}` +
-                `, received ${res.status}`);
+                throw new Error(`Could not fetch ${url}` + `, received ${res.status}`);
             }
             return await res.json();            
     }
-    async getData(){
-        return await this.getResource(`/binance/`);
-    }    
+
+    getData = async () => {
+        return await this.getResource(`/api/v3/depth?symbol=BNBBTC&limit=500`);
+    } 
 }

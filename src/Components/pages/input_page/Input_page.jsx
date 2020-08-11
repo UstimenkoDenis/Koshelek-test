@@ -1,31 +1,53 @@
-import React from 'react'
-import { Dropdown, ListGroup } from 'react-bootstrap';
+import React, { Component } from 'react'
+import { Dropdown, ListGroup, Container, Row, Col } from 'react-bootstrap';
+import {connect} from 'react-redux';
+import './Input_page.css';
 import App_Core from '../../../App_Core/App_Core';
 
-const Input_page = () => {
-    return (
-        <>
-            <App_Core store="true" SDK="true"/>
 
-           <Dropdown>
-                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                    Dropdown Button
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                </Dropdown.Menu>
-            </Dropdown>
-            <ListGroup>
-                <ListGroup.Item>Cras justo odio</ListGroup.Item>
-                <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-                <ListGroup.Item>Morbi leo risus</ListGroup.Item>
-                <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
-                <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
-            </ListGroup>
-        </>
-    )
+class Input_page extends Component {
+    render() {
+        return (          
+            <Container>
+                <Row className="input">
+                    <Col sm={12} lg={3} className="input__dropdown mt-3 ml-3">
+                        <Dropdown>
+                            <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                Select a simbol
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                <Dropdown.Item href=''>BTCUSDT</Dropdown.Item>
+                                <Dropdown.Item href=''>BNBBTC</Dropdown.Item>
+                                <Dropdown.Item href=''>ETHBTC</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </Col>
+                    <Col sm={12} lg={8} className="input__list p-3">
+                        <ListGroup>
+                            <ListGroup.Item>Cras justo odio</ListGroup.Item>
+                            <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
+                            <ListGroup.Item>Morbi leo risus</ListGroup.Item>
+                            <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
+                            <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+                        </ListGroup> 
+                    </Col> 
+                </Row>                               
+            </Container>     
+        )
+    }    
 }
 
-export default Input_page;
+const mapStateToProps = (state) => {
+    return {
+        dataItems: state.data,
+        currentSymbol: state.currentSymbol,
+        loading: state.loading,
+        error: state.error,
+    }
+}
+ 
+const mapDispatchToProps = { 
+    
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Input_page);

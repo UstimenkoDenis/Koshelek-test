@@ -1,5 +1,6 @@
 const initialState = {
    data: [],
+   currentSymbol:'',
    loading: true,
    error: false,
  }

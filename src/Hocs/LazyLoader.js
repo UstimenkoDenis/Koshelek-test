@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-const lazyLoader = (importComponent) => {
-    return class extends Component {
+const lazyLoader = (importComponent) => 
+    class extends Component {
         state = {
             component: null
         }
@@ -19,6 +19,5 @@ const lazyLoader = (importComponent) => {
             return CustComponent ? <CustComponent {...this.props}  /> : null;
         }
     }
-}
 
 export default lazyLoader;
