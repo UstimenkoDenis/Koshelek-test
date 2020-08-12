@@ -28,10 +28,20 @@ class Table_page extends Component {
 
     render() {
         
-        const { dataItems, loading, error } = this.props;
-        const { asks, bids } = dataItems;
+       const { dataItems, loading, error } = this.props;
+       const { asks, bids } = dataItems;
+      
+        if(loading) {
+            return <Spinner/>
+        }   else {                  
+                var bidsAndAsks = [...bids];
+               
+                    bidsAndAsks.forEach((element, i) => {
+                           bidsAndAsks[i] = [...bidsAndAsks[i],...asks[i]]                 
+                           console.log(bidsAndAsks[i])              
+                });                    
+            }
 
-        console.log(dataItems)
         if(error){
             return (
                 <Error/>
@@ -39,8 +49,7 @@ class Table_page extends Component {
         }
        
         return (   
-            <>  
-                { (loading)? <Spinner/>:                  
+            <>                            
                 <div className="table-wrapper">
                     <Table className="table" striped bordered hover>           
                         <thead className="table__header table__header_fixed">
@@ -54,20 +63,20 @@ class Table_page extends Component {
                             </tr>
                         </thead>                
                         <tbody className="table__body">  
-                            { bids.map( (item, i) => {
+                            { bidsAndAsks.map( (item, i) => {
                                 return (
                                     <tr key={i}>
                                         <td width="16%">{item[0]}</td>
                                         <td width="16%">{item[1]}</td>
-                                        <td className="d-none d-lg-block width='16%'" >{item.amount*item.price}</td>
-                                        <td width="16%"></td>
-                                        <td width="16%"></td>
-                                        <td className="d-none d-lg-block width='16%'"></td>
+                                        <td className="d-none d-lg-block width='16%'" >{item[0]*item[1]}</td>
+                                        <td width="16%">{item[2]}</td>
+                                        <td width="16%">{item[3]}</td>
+                                        <td className="d-none d-lg-block width='16%'">{item[2]*item[3]}</td>
                                     </tr>)                                       
-                            })}                             
+                            })}                           
                         </tbody>              
                     </Table> 
-                </div> }
+                </div> 
             </>
         )
     };       
