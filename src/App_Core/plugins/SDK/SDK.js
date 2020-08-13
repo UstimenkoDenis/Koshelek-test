@@ -12,7 +12,7 @@ export default class SDK {
             return await res.json();            
     }
 
-    getData = async () => {
-        return await this.getResource(`/api/v3/depth?symbol=BNBBTC&limit=500`);
+    getData = async (url) => {
+        return await this.getResource(url);
     } 
 }

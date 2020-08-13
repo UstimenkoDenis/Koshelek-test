@@ -28,7 +28,7 @@ const App = () => {
             <Route path='/table' component={AsyncTable}/>
             <Route path='/input' component={AsyncInput}/>
           </Switch>
-        </div>        
+        </div>                
       </div>
     </Router>    
   );

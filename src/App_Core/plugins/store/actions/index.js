@@ -14,8 +14,15 @@ const dataError = () => {
         type: 'DATA_ERROR'
     }
 }
+const setCurrentSymbol = (symbol) => {       
+    return {        
+        type: 'SET_CURRENT_SYMBOL',
+        payload: symbol
+    }
+}
 export {
     dataLoaded,
     dataRequested,
-    dataError  
+    dataError,
+    setCurrentSymbol  
 };

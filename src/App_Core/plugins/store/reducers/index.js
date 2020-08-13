@@ -1,6 +1,6 @@
 const initialState = {
    data: [],
-   currentSymbol:'',
+   currentSymbol:'BNBBTC',
    loading: true,
    error: false,
  }
@@ -11,19 +11,27 @@ const initialState = {
         return {                
                 data: action.payload,
                 loading: false,
-                error: false
+                error: false,
+                currentSymbol: state.currentSymbol
             }               
         case 'DATA_REQUESTED' :        
             return {
                 data: state.data,
                 loading: true,
-                error: false
+                error: false,
+                currentSymbol: state.currentSymbol
             }
         case 'DATA_ERROR': 
             return {
                 ...state,
                 error: true
-            }   
+            } 
+        case 'SET_CURRENT_SYMBOL':
+            // console.log(action.payload)
+            return {
+                ...state,
+                currentSymbol: action.payload
+            }
         default:
         return state;
     } 

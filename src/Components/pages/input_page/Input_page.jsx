@@ -3,10 +3,11 @@ import { Dropdown, ListGroup, Container, Row, Col } from 'react-bootstrap';
 import {connect} from 'react-redux';
 import './Input_page.css';
 import App_Core from '../../../App_Core/App_Core';
-
+import { setCurrentSymbol } from '../../../App_Core/plugins/store/actions'
 
 class Input_page extends Component {
-    render() {
+    render() {       
+        console.log('input currentSymbol',this.props.currentSymbol) 
         return (          
             <Container>
                 <Row className="input">
@@ -16,9 +17,9 @@ class Input_page extends Component {
                                 Select a simbol
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
-                                <Dropdown.Item href=''>BTCUSDT</Dropdown.Item>
-                                <Dropdown.Item href=''>BNBBTC</Dropdown.Item>
-                                <Dropdown.Item href=''>ETHBTC</Dropdown.Item>
+                                <Dropdown.Item onClick = {() => this.props.setCurrentSymbol('BTCUSDT')}>BTCUSDT</Dropdown.Item>
+                                <Dropdown.Item onClick = {() => this.props.setCurrentSymbol('BNBBTC')}>BNBBTC</Dropdown.Item>
+                                <Dropdown.Item onClick = {() => this.props.setCurrentSymbol('ETHBTC')}>ETHBTC</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
                     </Col>
@@ -38,16 +39,17 @@ class Input_page extends Component {
 }
 
 const mapStateToProps = (state) => {
+    console.log('current input state', state)
     return {
         dataItems: state.data,
         currentSymbol: state.currentSymbol,
-        loading: state.loading,
-        error: state.error,
+        error: state.error, 
+        loading : state.loading      
     }
 }
  
 const mapDispatchToProps = { 
-    
+    setCurrentSymbol
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Input_page);

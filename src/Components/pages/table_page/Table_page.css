@@ -1,13 +1,28 @@
-.table-wrapper {
-    height: 300px;
-    overflow-y: scroll;  
+.table {
+    display: block;
+    padding: 2%;
 }
-   
-.table__header_fixed th {
-    position: sticky;
-    top: 0;
-    background-color: #60a9ca;
+.table__header {    
+    display: block;
+    box-sizing: border-box;
+    background-color: #60a9ca;   
+} 
+.table__body {
+   display: block;
+   box-sizing: border-box;  
+   height: 800px; 
+   overflow: hidden;
+} 
+.table__body:hover {
+    overflow-y: scroll;
 }
+
+.table th, td{
+    width: 200px;
+} 
+
+    
+
 
 
 
