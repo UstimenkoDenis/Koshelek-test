@@ -1,16 +1,13 @@
 .App {
   text-align: center; 
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: column;  
+  height: 100%;
 }
-
-.App__header {
-  max-height: 30vh;
-}
-
-.App__content {  
-  height: 100vh;
+.App__content {    
   background-color: rgb(216, 212, 187);
+  height: auto;
+  align-content: stretch;
 }
+
 

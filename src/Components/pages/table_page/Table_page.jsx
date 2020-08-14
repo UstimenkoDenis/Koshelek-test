@@ -43,9 +43,10 @@ class Table_page extends Component {
                 <Error/>
             )
         }
-       
-        return (   
-                                        
+       const styleTD = {
+            width: 10
+       }
+        return (                                        
                 <Container>
                     <Table className="table" striped bordered hover>           
                         <thead className="table__header">
@@ -58,7 +59,13 @@ class Table_page extends Component {
                                 <th className="d-none d-lg-block">Total</th>
                             </tr>
                         </thead>                          
-                        <tbody className="table__body">  
+                        <tbody className="table__body" onMouseOver = {() =>{
+                            const td = document.querySelectorAll('td')
+                            td.forEach((item) => {
+                                item.style={styleTD}
+                            })
+                            
+                        } }>  
                             { bidsAndAsks.map( (item, i) => {
                                 return (
                                     <tr key={i}>
@@ -69,7 +76,7 @@ class Table_page extends Component {
                                         <td width="16%">{item[2]}</td>
                                         <td className="d-none d-lg-block width='16%'">{item[2]*item[3]}</td>
                                     </tr>)                              
-                            })}                                                     
+                            })}                           
                         </tbody>                             
                     </Table> 
                 </Container> 

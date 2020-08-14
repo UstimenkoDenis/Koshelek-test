@@ -9,9 +9,9 @@ const Navigation = () => {
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav >
                 <Nav.Link className="d-inline p-2 bg-dark text-white"
-                    href="/table">Table</Nav.Link>
+                    href="/#/table">Table</Nav.Link>
                 <Nav.Link className="d-inline p-2 bg-dark text-white"
-                    href="/input">Input</Nav.Link>                           
+                    href="/#/input">Input</Nav.Link>                           
                 </Nav>             
             </Navbar.Collapse>
         </Navbar>

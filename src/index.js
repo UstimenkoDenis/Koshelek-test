@@ -8,12 +8,14 @@ import SDKContext from './App_Core/plugins/SDK/SDKContext/SDK-context';
 import store from './App_Core/plugins/store/Store';
 import SDK from './App_Core/plugins/SDK/SDK';
 
+
 const sdk = new SDK();
 
 ReactDOM.render(
   <Provider store = {store}>
     <ErrorBoundry>
       <SDKContext.Provider value={sdk}>
+
         <App/>
       </SDKContext.Provider>    
     </ErrorBoundry>    

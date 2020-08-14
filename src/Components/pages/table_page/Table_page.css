@@ -9,8 +9,7 @@
 } 
 .table__body {
    display: block;
-   box-sizing: border-box;  
-   height: 800px; 
+   box-sizing: border-box;    
    overflow: hidden;
 } 
 .table__body:hover {
@@ -21,6 +20,9 @@
     width: 200px;
 } 
 
+.table thead th {
+    border-bottom: 0;
+}
     
 
 

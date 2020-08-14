@@ -1,6 +1,6 @@
 const initialState = {
    data: [],
-   currentSymbol:'BNBBTC',
+   currentSymbol:'BTCUSDT',
    loading: true,
    error: false,
  }
