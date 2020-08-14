@@ -20,9 +20,23 @@ const setCurrentSymbol = (symbol) => {
         payload: symbol
     }
 }
+const updateDiff = (diff) => {       
+    return {        
+        type: 'UPDATE_DIFF',
+        payload: diff
+    }
+}
+const updateNewData = (newData) => {       
+    return {        
+        type: 'UPDATE_NEWDATA',
+        payload: newData
+    }
+}
 export {
     dataLoaded,
     dataRequested,
     dataError,
-    setCurrentSymbol  
+    setCurrentSymbol,
+    updateDiff,
+    updateNewData  
 };

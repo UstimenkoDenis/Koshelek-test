@@ -1,6 +1,7 @@
 export default class SDK {
     constructor() {
         this._apiBase = 'https://api.binance.com'
+        this._wssBase = 'wss://stream.binance.com:9443'
     }
     
     getResource = async (url) => {
@@ -15,4 +16,10 @@ export default class SDK {
     getData = async (url) => {
         return await this.getResource(url);
     } 
+
+    subscribeToUpdates = (streamName) => {
+        const _updates = new WebSocket(`${this._wssBase}${streamName}`)  
+        return _updates;    
+    }
+
 }

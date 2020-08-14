@@ -25,7 +25,7 @@ class Input_page extends Component {
                     </Col>
                     <Col sm={12} lg={8} className="input__list p-3">
                         <ListGroup>
-                            <ListGroup.Item>Cras justo odio</ListGroup.Item>
+                            <ListGroup.Item>{this.props.currentSymbol}</ListGroup.Item>
                             <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
                             <ListGroup.Item>Morbi leo risus</ListGroup.Item>
                             <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
@@ -44,7 +44,8 @@ const mapStateToProps = (state) => {
         dataItems: state.data,
         currentSymbol: state.currentSymbol,
         error: state.error, 
-        loading : state.loading      
+        loading : state.loading,
+        diff: state.diff      
     }
 }
  

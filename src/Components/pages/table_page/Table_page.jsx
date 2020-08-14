@@ -3,7 +3,7 @@ import { Table, Container } from 'react-bootstrap';
 import './Table_page.css';
 import App_Core from '../../../App_Core/App_Core';
 import WithSDK from '../../../Hocs/withSDK';
-import {dataLoaded, dataRequested, dataError} from '../../../App_Core/plugins/store/actions/index';
+import {dataLoaded, dataRequested, dataError, updateDiff, updateNewData} from '../../../App_Core/plugins/store/actions/index';
 import {connect} from 'react-redux';
 import Spinner from '../../spinner';
 import Error from '../../error';
@@ -15,18 +15,38 @@ class Table_page extends Component {
         this.props.dataRequested();  
 
         const {SDK, currentSymbol} = this.props; 
-               
-        SDK.getData(`/api/v3/depth?symbol=${currentSymbol}&limit=500`)
+         
+       SDK.getData(`/api/v1/depth?symbol=${currentSymbol}&limit=500`)
         .then(res => this.props.dataLoaded(res)) 
-        .catch(error => this.props.dataError()); 
-                  
+        .catch(error => this.props.dataError());   
+        
+        const updates = SDK.subscribeToUpdates(`/ws/${currentSymbol.toLowerCase()}@depth`)
+
+        updates.onmessage = (msg) => {
+            let data = JSON.parse(msg.data)
+            
+            if(data.u <= this.props.dataItems.lastUpdateId) {}
+
+           console.log(data)
+           console.log('last', this.props.dataItems.lastUpdateId)
+
+           this.props.updateNewData(data)
+
+        }
+    }
+
+    method = () => {
+        this.wsObj.onmessage = (msg) => {
+            let data = JSON.parse(msg.data)
+           console.log(data)
+        }
     }
    
     render() {
-     
+    //  this.method();
        const { dataItems, loading, error } = this.props;
        const { asks, bids } = dataItems;
-      
+    //    console.log('newdata', this.props.newData)
         if(loading) {
             return <Spinner/>
         }   else {                  
@@ -71,10 +91,11 @@ class Table_page extends Component {
                                     <tr key={i}>
                                         <td width="16%">{item[1]}</td>
                                         <td width="16%">{item[0]}</td>
-                                        <td className="d-none d-lg-block width='16%'" >{item[0]*item[1]}</td>
+                                        <td className="d-none d-lg-block" >{item[0]*item[1]}</td>
                                         <td width="16%">{item[3]}</td>
                                         <td width="16%">{item[2]}</td>
-                                        <td className="d-none d-lg-block width='16%'">{item[2]*item[3]}</td>
+                                        <td className="d-none d-lg-block">{item[2]*item[3]}</td> 
+                                                  
                                     </tr>)                              
                             })}                           
                         </tbody>                             
@@ -91,14 +112,18 @@ const mapStateToProps = (state) => {
         dataItems: state.data,
         currentSymbol: state.currentSymbol,
         loading: state.loading,
-        error: state.error
+        error: state.error,
+        diff: state.diff,
+        newData: state.newData
     }
 }
  
 const mapDispatchToProps = { 
     dataLoaded,
     dataRequested,
-    dataError
+    dataError,
+    updateDiff,
+    updateNewData
 };
 
 export default WithSDK()(connect(mapStateToProps, mapDispatchToProps)(Table_page));
