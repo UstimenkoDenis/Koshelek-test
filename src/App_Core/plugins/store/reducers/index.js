@@ -1,18 +1,16 @@
 const initialState = {
-   data: [],
-   newData: [1,2], 
+   data: [],    
    currentSymbol:'BTCUSDT',
    loading: true,
    error: false,
-   diff: 0   
+   diff: {bids:[],asks:[]}   
  }
  
  const reducer = (state = initialState, action) => {
     switch (action.type) {
         case 'DATA_LOADED':
         return {                
-                data: action.payload,
-                newData: state.newData,
+                data: action.payload,               
                 loading: false,
                 error: false,
                 currentSymbol: state.currentSymbol,
@@ -20,8 +18,7 @@ const initialState = {
             }               
         case 'DATA_REQUESTED' :        
             return {
-                data: state.data,
-                newData: state.newData,
+                data: state.data,                
                 loading: true,
                 error: false,
                 currentSymbol: state.currentSymbol,
@@ -42,12 +39,7 @@ const initialState = {
             return {
                 ...state,
                 diff: action.payload
-            }
-        case 'UPDATE_NEWDATA':        
-            return {
-                ...state,
-                newData: action.payload
-            }
+            }       
         default:
         return state;
     } 

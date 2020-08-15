@@ -6,7 +6,6 @@ import './App.css';
 import Whoops404 from './Components/whoops404/whoops404';
 import Header from './Components/header/Header';
 import lazyComponentLoader from './Hocs/LazyLoader';
-import App_Core from './App_Core/App_Core';
 
 const AsyncTable = lazyComponentLoader(() => import('./Components/pages/table_page/Table_page'));
 const AsyncInput = lazyComponentLoader(() => import('./Components/pages/input_page/Input_page'));

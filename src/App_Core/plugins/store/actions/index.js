@@ -1,15 +1,15 @@
-const dataLoaded = (newData) => {
+const snapshotLoaded = (newData) => {
     return {
         type: 'DATA_LOADED',
         payload: newData       
     }
 }
-const dataRequested = () => {
+const snapshotRequested = () => {
     return {
         type: 'DATA_REQUESTED',       
     }
 }
-const dataError = () => {
+const snapshotError = () => {
     return {
         type: 'DATA_ERROR'
     }
@@ -26,17 +26,11 @@ const updateDiff = (diff) => {
         payload: diff
     }
 }
-const updateNewData = (newData) => {       
-    return {        
-        type: 'UPDATE_NEWDATA',
-        payload: newData
-    }
-}
+
 export {
-    dataLoaded,
-    dataRequested,
-    dataError,
+    snapshotLoaded,
+    snapshotRequested,
+    snapshotError,
     setCurrentSymbol,
-    updateDiff,
-    updateNewData  
+    updateDiff  
 };

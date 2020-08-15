@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Dropdown, ListGroup, Container, Row, Col } from 'react-bootstrap';
 import {connect} from 'react-redux';
 import './Input_page.css';
-import App_Core from '../../../App_Core/App_Core';
+
 import { setCurrentSymbol } from '../../../App_Core/plugins/store/actions'
 
 class Input_page extends Component {
@@ -11,7 +11,7 @@ class Input_page extends Component {
         return (          
             <Container>
                 <Row className="input">
-                    <Col sm={12} lg={3} className="input__dropdown mt-3 ml-3">
+                    <Col xs={12} lg={3} className="input__dropdown mt-3 ml-3">
                         <Dropdown>
                             <Dropdown.Toggle variant="success" id="dropdown-basic">
                                 Select a simbol
@@ -23,13 +23,11 @@ class Input_page extends Component {
                             </Dropdown.Menu>
                         </Dropdown>
                     </Col>
-                    <Col sm={12} lg={8} className="input__list p-3">
+                    <Col xs={12} lg={8} className="input__list p-3">
                         <ListGroup>
-                            <ListGroup.Item>{this.props.currentSymbol}</ListGroup.Item>
-                            <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-                            <ListGroup.Item>Morbi leo risus</ListGroup.Item>
-                            <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
-                            <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+                            {   this.props.diff.bids.map((item, i) => {
+                                    return <ListGroup.Item key={i}>{`${this.props.currentSymbol} ${item[0]} ${item[1]}`}</ListGroup.Item>
+                            })}                     
                         </ListGroup> 
                     </Col> 
                 </Row>                               

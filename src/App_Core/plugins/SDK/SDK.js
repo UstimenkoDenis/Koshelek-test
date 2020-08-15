@@ -13,7 +13,7 @@ export default class SDK {
             return await res.json();            
     }
 
-    getData = async (url) => {
+    getSnapshot = async (url) => {
         return await this.getResource(url);
     } 
 

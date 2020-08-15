@@ -4,21 +4,18 @@
 }
 .table__header {    
     display: block;
-    box-sizing: border-box;
+  
     background-color: #60a9ca;   
 } 
 .table__body {
    display: block;
-   box-sizing: border-box;    
+    
    overflow: hidden;
 } 
 .table__body:hover {
     overflow-y: scroll;
+    
 }
-
-.table th, td{
-    width: 200px;
-} 
 
 .table thead th {
     border-bottom: 0;
