@@ -3,7 +3,7 @@ const initialState = {
    currentSymbol:'BTCUSDT',
    loading: true,
    error: false,
-   diff: {bids:[],asks:[]}   
+   diff: { bidsDiff: [], asksDiff: [] }   
  }
  
  const reducer = (state = initialState, action) => {
@@ -39,7 +39,13 @@ const initialState = {
             return {
                 ...state,
                 diff: action.payload
-            }       
+            }  
+        case 'ADD_DIFFS_TO_DATA':        
+            return {
+                ...state,
+                data: action.payload
+            }    
+            
         default:
         return state;
     } 

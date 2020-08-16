@@ -11,7 +11,7 @@ class Input_page extends Component {
         return (          
             <Container>
                 <Row className="input">
-                    <Col xs={12} lg={3} className="input__dropdown mt-3 ml-3">
+                    <Col xs={12} lg={2} className="input__dropdown mt-3 ml-3">
                         <Dropdown>
                             <Dropdown.Toggle variant="success" id="dropdown-basic">
                                 Select a simbol
@@ -23,12 +23,20 @@ class Input_page extends Component {
                             </Dropdown.Menu>
                         </Dropdown>
                     </Col>
-                    <Col xs={12} lg={8} className="input__list p-3">
+                    <Col xs={12} lg={5} className="input__list p-3">
                         <ListGroup>
-                            {   this.props.diff.bids.map((item, i) => {
+                            {   this.props.diff.bidsDiff.map((item, i) => {
                                     return <ListGroup.Item key={i}>{`${this.props.currentSymbol} ${item[0]} ${item[1]}`}</ListGroup.Item>
                             })}                     
                         </ListGroup> 
+                         
+                    </Col>
+                    <Col xs={12} lg={5} className="input__list p-3">
+                        <ListGroup>
+                            {   this.props.diff.asksDiff.map((item, i) => {
+                                    return <ListGroup.Item key={i}>{`${this.props.currentSymbol} ${item[0]} ${item[1]}`}</ListGroup.Item>
+                            })}                     
+                        </ListGroup>
                     </Col> 
                 </Row>                               
             </Container>     

@@ -3,21 +3,16 @@ import { Table, Container } from 'react-bootstrap';
 import './Table_page.css';
 
 import WithSDK from '../../../Hocs/withSDK';
-import {snapshotLoaded, snapshotRequested, snapshotError, updateDiff} from '../../../App_Core/plugins/store/actions/index';
+import {snapshotLoaded, snapshotRequested, snapshotError, updateDiff, addDiffsToData} from '../../../App_Core/plugins/store/actions/index';
 import {connect} from 'react-redux';
 import Spinner from '../../spinner';
 import Error from '../../error';
 
 class Table_page extends Component {  
     constructor(props) {
-        super(props)
-        
-    //     console.log('Height is', document.documentElement.clientHeight)
-    //     console.log('Width is', document.documentElement.clientWidth)
-        
-    //    console.log('Table',Table_page.tableHeight) 
-        
-        this.state = {
+        super(props)       
+   
+        this.state = {           
             tableHeight: document.documentElement.clientHeight - 10,
             tableBodyHeight: '95%',
             tableThWidth: 200,
@@ -32,40 +27,53 @@ class Table_page extends Component {
         
         this.props.snapshotRequested();  
 
-        const {SDK, currentSymbol} = this.props; 
-         
+        const {SDK, currentSymbol} = this.props;         
+
         const updates = SDK.subscribeToUpdates(`/ws/${currentSymbol.toLowerCase()}@depth`)
 
         SDK.getSnapshot(`/api/v1/depth?symbol=${currentSymbol}&limit=500`)
-            .then(res => this.props.snapshotLoaded(res)) 
+            .then(res => this.props.snapshotLoaded(res))             
             .catch(error => this.props.snapshotError()); 
-
+           
         updates.onmessage = (msg) => {
             let data = JSON.parse(msg.data)  
             let filterDataAsks = data.a.filter(item => item[1] != 0)  
             let filterDataBids = data.b.filter(item => item[1] != 0)  
 
-            this.props.updateDiff({
-                bids: filterDataBids,
-                asks: filterDataAsks           
-            })     
+            let {dataItems} = this.props;
+            let {bids, asks} = dataItems;           
 
-            console.log(this.props.diff)
+            this.props.updateDiff({
+                bidsDiff: filterDataBids,
+                asksDiff: filterDataAsks           
+            })     
+            console.log('old  ', dataItems)
+            
+            const newBids = [...filterDataBids, ...bids];
+            const newAsks = [...filterDataAsks, ...asks];
+            const newDataItems = {bids: newBids, asks: newAsks}
+            
+            
+
+            this.props.addDiffsToData(newDataItems);
+            console.log('new',newDataItems)
+            // console.log(this.props.diff)
         }
     } 
 
     componentWillReceiveProps(newProps) {
         if(newProps !== this.props) {
-            console.log('new Props currentSymbol', newProps.currentSymbol)
-            console.log('old props', this.props.currentSymbol)
+            // console.log('new Props currentSymbol', newProps.currentSymbol)
+            // console.log('old props', this.props.currentSymbol)
             // this.props.SDK.updates.close(1000,'the work is done');
         }
     }
 
     render() {
     
-       const { dataItems, loading, error } = this.props;
+       const { dataItems, loading, error} = this.props;
        const { asks, bids } = dataItems;
+      
     
         if(loading) {
             return <Spinner/>
@@ -73,9 +81,9 @@ class Table_page extends Component {
                 var bidsAndAsks = [...bids];
                
                     bidsAndAsks.forEach((element, i) => {
+                        if(asks[i] && bids[i])
                            bidsAndAsks[i] = [...bidsAndAsks[i],...asks[i]]                                     
-                    }); 
-                                        
+                    });                         
             }
 
         if(error){
@@ -83,7 +91,7 @@ class Table_page extends Component {
                 <Error/>
             )
         }
-       const {mobile, tableThWidth, tableTdWidth, tableFiveTdWidth, tableSixTdWidth, tableHeight, tableBodyHeight} = this.state
+       const { mobile, tableThWidth, tableTdWidth, tableFiveTdWidth, tableSixTdWidth, tableHeight, tableBodyHeight} = this.state
         return (                                        
                 <>
                     <div>{this.props.currentSymbol}</div>
@@ -112,18 +120,19 @@ class Table_page extends Component {
                                    }
                                                      
                         } }>  
-                            { bidsAndAsks.map( (item, i) => {
-                                return (
-                                    <tr key={i}>
-                                        <td width={tableTdWidth}>{item[1]}</td>
-                                        <td width={tableTdWidth}>{item[0]}</td>
-                                        <td width={tableTdWidth} className="d-none d-lg-block" >{item[0]*item[1]}</td>
-                                        <td width={tableTdWidth}>{item[3]}</td>
-                                        <td width={tableFiveTdWidth}>{item[2]}</td>
-                                        <td width={tableSixTdWidth} className="d-none d-lg-block">{item[2]*item[3]}</td> 
-                                                  
-                                    </tr>)                              
-                            })}                                                                         
+                            {  
+                                bidsAndAsks.map( (item, i) => {                                    
+                                    return (
+                                        <tr key={i}>
+                                            <td width={tableTdWidth}>{item[1]}</td>
+                                            <td width={tableTdWidth}>{item[0]}</td>
+                                            <td width={tableTdWidth} className="d-none d-lg-block" >{item[0]*item[1]}</td>
+                                            <td width={tableTdWidth}>{item[3]}</td>
+                                            <td width={tableFiveTdWidth}>{item[2]}</td>
+                                            <td width={tableSixTdWidth} className="d-none d-lg-block">{item[2]*item[3]}</td> 
+                                                    
+                                        </tr>)                            
+                                }) }                                                                          
                         </tbody>                             
                     </Table> 
                 </> 
@@ -147,7 +156,8 @@ const mapDispatchToProps = {
     snapshotLoaded,
     snapshotRequested,
     snapshotError,
-    updateDiff  
+    updateDiff,
+    addDiffsToData  
 };
 
 export default WithSDK()(connect(mapStateToProps, mapDispatchToProps)(Table_page));

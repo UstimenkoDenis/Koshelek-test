@@ -27,10 +27,17 @@ const updateDiff = (diff) => {
     }
 }
 
+const addDiffsToData = (diffData) => {       
+    return {        
+        type: 'ADD_DIFFS_TO_DATA',
+        payload: diffData
+    }
+}
 export {
     snapshotLoaded,
     snapshotRequested,
     snapshotError,
     setCurrentSymbol,
-    updateDiff  
+    updateDiff,
+    addDiffsToData  
 };
