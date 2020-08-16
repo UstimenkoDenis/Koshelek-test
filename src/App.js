@@ -8,18 +8,18 @@ import Header from './Components/header/Header';
 import lazyComponentLoader from './Hocs/LazyLoader';
 
 const AsyncTable = lazyComponentLoader(() => import('./Components/pages/table_page/Table_page'));
-const AsyncInput = lazyComponentLoader(() => import('./Components/pages/input_page/Input_page'));
+const AsyncLastUpdates = lazyComponentLoader(() => import('./Components/pages/lastUpdates_page/LastUpdates_page'));
 
 const App = () => {
   return (
     <Router>
-      <div className="App">
+      <div className="app">
         <Header/>        
-        <div className="App__content">
+        <div className="app__content">
           <Switch>
             <Route path='/' exact component={null}/> 
             <Route path='/table' component={AsyncTable}/>
-            <Route path='/input' component={AsyncInput}/>
+            <Route path='/lastupdates' component={AsyncLastUpdates}/>
             <Route component={Whoops404}/>
           </Switch>         
         </div>                      

@@ -1,6 +1,6 @@
 const initialState = {
    data: [],    
-   currentSymbol:'BTCUSDT',
+   currentSymbol:'BTCUSDT', 
    loading: true,
    error: false,
    diff: { bidsDiff: [], asksDiff: [] }   
@@ -13,7 +13,7 @@ const initialState = {
                 data: action.payload,               
                 loading: false,
                 error: false,
-                currentSymbol: state.currentSymbol,
+                currentSymbol: state.currentSymbol,                
                 diff: state.diff
             }               
         case 'DATA_REQUESTED' :        
@@ -21,7 +21,7 @@ const initialState = {
                 data: state.data,                
                 loading: true,
                 error: false,
-                currentSymbol: state.currentSymbol,
+                currentSymbol: state.currentSymbol,              
                 diff: state.diff
             }
         case 'DATA_ERROR': 
@@ -33,7 +33,7 @@ const initialState = {
             
             return {
                 ...state,
-                currentSymbol: action.payload
+                currentSymbol: action.payload               
             }
         case 'UPDATE_DIFF':        
             return {
@@ -43,7 +43,7 @@ const initialState = {
         case 'ADD_DIFFS_TO_DATA':        
             return {
                 ...state,
-                data: action.payload
+                data: action.payload,                
             }    
             
         default:

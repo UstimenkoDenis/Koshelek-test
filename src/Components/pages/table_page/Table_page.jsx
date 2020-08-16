@@ -21,21 +21,19 @@ class Table_page extends Component {
             tableSixTdWidth: 200,
             mobile: false
         }
-    }
-     
-    componentDidMount() {    
+
+        this.props.snapshotRequested();          
+
+        const {SDK, currentSymbol} = this.props; 
         
-        this.props.snapshotRequested();  
-
-        const {SDK, currentSymbol} = this.props;         
-
-        const updates = SDK.subscribeToUpdates(`/ws/${currentSymbol.toLowerCase()}@depth`)
+        this.updates = SDK.subscribeToUpdates(`/ws/${this.props.currentSymbol.toLowerCase()}@depth`)
 
         SDK.getSnapshot(`/api/v1/depth?symbol=${currentSymbol}&limit=500`)
             .then(res => this.props.snapshotLoaded(res))             
-            .catch(error => this.props.snapshotError()); 
-           
-        updates.onmessage = (msg) => {
+            .catch(error => this.props.snapshotError());
+
+        this.updates.onmessage = (msg) => {
+
             let data = JSON.parse(msg.data)  
             let filterDataAsks = data.a.filter(item => item[1] != 0)  
             let filterDataBids = data.b.filter(item => item[1] != 0)  
@@ -51,22 +49,16 @@ class Table_page extends Component {
             
             const newBids = [...filterDataBids, ...bids];
             const newAsks = [...filterDataAsks, ...asks];
-            const newDataItems = {bids: newBids, asks: newAsks}
-            
-            
+            const newDataItems = {bids: newBids, asks: newAsks}                      
 
             this.props.addDiffsToData(newDataItems);
-            console.log('new',newDataItems)
-            // console.log(this.props.diff)
+            console.log(`new ${currentSymbol}   `,newDataItems)
+            
         }
-    } 
-
-    componentWillReceiveProps(newProps) {
-        if(newProps !== this.props) {
-            // console.log('new Props currentSymbol', newProps.currentSymbol)
-            // console.log('old props', this.props.currentSymbol)
-            // this.props.SDK.updates.close(1000,'the work is done');
-        }
+    }
+     
+    componentWillUnmount(){
+        this.updates.close(1000,'the work is done')
     }
 
     render() {
@@ -142,10 +134,10 @@ class Table_page extends Component {
 };
 
 const mapStateToProps = (state) => {
-    console.log('current table state', state)
+    // console.log('current table state', state)
     return {
         dataItems: state.data,
-        currentSymbol: state.currentSymbol,
+        currentSymbol: state.currentSymbol,       
         loading: state.loading,
         error: state.error,
         diff: state.diff       

@@ -15,7 +15,6 @@ ReactDOM.render(
   <Provider store = {store}>
     <ErrorBoundry>
       <SDKContext.Provider value={sdk}>
-
         <App/>
       </SDKContext.Provider>    
     </ErrorBoundry>    

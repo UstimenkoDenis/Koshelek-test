@@ -1,17 +1,27 @@
 import React, { Component } from 'react'
 import { Dropdown, ListGroup, Container, Row, Col } from 'react-bootstrap';
 import {connect} from 'react-redux';
-import './Input_page.css';
+import './LastUpdates_page.css';
 
 import { setCurrentSymbol } from '../../../App_Core/plugins/store/actions'
 
-class Input_page extends Component {
+class LastUpdates_page extends Component {
+    constructor(props) {
+        super(props)
+
+        this.symbolLabel = props.currentSymbol;
+    }
     render() {       
-        console.log('input currentSymbol',this.props.currentSymbol) 
+        
         return (          
-            <Container>
+            <Container fluid>
+                <Row>
+                    <h4>Last updates in {this.symbolLabel}</h4>
+                </Row>
+                
                 <Row className="input">
-                    <Col xs={12} lg={2} className="input__dropdown mt-3 ml-3">
+                    
+                    <Col xs={2} lg={2} className="last-updates__dropdown mt-3 ml-3">
                         <Dropdown>
                             <Dropdown.Toggle variant="success" id="dropdown-basic">
                                 Select a simbol
@@ -23,18 +33,23 @@ class Input_page extends Component {
                             </Dropdown.Menu>
                         </Dropdown>
                     </Col>
-                    <Col xs={12} lg={5} className="input__list p-3">
+                    <Col xs={4} lg={4} className="last-updates__list p-3">
                         <ListGroup>
+                            <ListGroup.Item>
+                                <h2>Bids</h2>
+                            </ListGroup.Item>
                             {   this.props.diff.bidsDiff.map((item, i) => {
-                                    return <ListGroup.Item key={i}>{`${this.props.currentSymbol} ${item[0]} ${item[1]}`}</ListGroup.Item>
+                                    return <ListGroup.Item key={i}>{`Price:    ${item[0]}   Amount:     ${item[1]}`}</ListGroup.Item>
                             })}                     
-                        </ListGroup> 
-                         
+                        </ListGroup>                          
                     </Col>
-                    <Col xs={12} lg={5} className="input__list p-3">
+                    <Col xs={4} lg={4} className="last-updates__list p-3">
                         <ListGroup>
+                            <ListGroup.Item>
+                                <h2>Asks</h2>
+                            </ListGroup.Item>
                             {   this.props.diff.asksDiff.map((item, i) => {
-                                    return <ListGroup.Item key={i}>{`${this.props.currentSymbol} ${item[0]} ${item[1]}`}</ListGroup.Item>
+                                    return <ListGroup.Item key={i}>{`Price:    ${item[0]}   Amount:     ${item[1]}`}</ListGroup.Item>
                             })}                     
                         </ListGroup>
                     </Col> 
@@ -44,8 +59,7 @@ class Input_page extends Component {
     }    
 }
 
-const mapStateToProps = (state) => {
-    console.log('current input state', state)
+const mapStateToProps = (state) => {    
     return {
         dataItems: state.data,
         currentSymbol: state.currentSymbol,
@@ -59,4 +73,4 @@ const mapDispatchToProps = {
     setCurrentSymbol
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Input_page);
+export default connect(mapStateToProps, mapDispatchToProps)(LastUpdates_page);

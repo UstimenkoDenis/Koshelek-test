@@ -1,10 +1,10 @@
-.App {
+.app {
   text-align: center; 
   display: flex;
   flex-direction: column;  
   height: 100%;
 }
-.App__content {    
+.app__content {    
   background-color: rgb(216, 212, 187);
   height: auto;
   
