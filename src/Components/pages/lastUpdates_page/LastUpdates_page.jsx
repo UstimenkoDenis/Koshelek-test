@@ -13,48 +13,63 @@ class LastUpdates_page extends Component {
     }
     render() {       
         
-        return (          
-            <Container fluid>
-                <Row>
-                    <h4>Last updates in {this.symbolLabel}</h4>
-                </Row>
-                
-                <Row className="input">
+        return (  
+            <div className="wrapper">
+                <Container fluid>
+                    <Row className="m-2">
+                        <h4>Last updates in {this.symbolLabel}</h4>
+                    </Row>
                     
-                    <Col xs={2} lg={2} className="last-updates__dropdown mt-3 ml-3">
-                        <Dropdown>
-                            <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                Select a simbol
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu>
-                                <Dropdown.Item onClick = {() => this.props.setCurrentSymbol('BTCUSDT')}>BTCUSDT</Dropdown.Item>
-                                <Dropdown.Item onClick = {() => this.props.setCurrentSymbol('BNBBTC')}>BNBBTC</Dropdown.Item>
-                                <Dropdown.Item onClick = {() => this.props.setCurrentSymbol('ETHBTC')}>ETHBTC</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
-                    </Col>
-                    <Col xs={4} lg={4} className="last-updates__list p-3">
-                        <ListGroup>
-                            <ListGroup.Item>
-                                <h2>Bids</h2>
-                            </ListGroup.Item>
-                            {   this.props.diff.bidsDiff.map((item, i) => {
-                                    return <ListGroup.Item key={i}>{`Price:    ${item[0]}   Amount:     ${item[1]}`}</ListGroup.Item>
-                            })}                     
-                        </ListGroup>                          
-                    </Col>
-                    <Col xs={4} lg={4} className="last-updates__list p-3">
-                        <ListGroup>
-                            <ListGroup.Item>
-                                <h2>Asks</h2>
-                            </ListGroup.Item>
-                            {   this.props.diff.asksDiff.map((item, i) => {
-                                    return <ListGroup.Item key={i}>{`Price:    ${item[0]}   Amount:     ${item[1]}`}</ListGroup.Item>
-                            })}                     
-                        </ListGroup>
-                    </Col> 
-                </Row>                               
-            </Container>     
+                    <Row className="input">
+                        
+                        <Col sm={12} md={2} className="last-updates__dropdown mt-3 m-4 ml-3">
+                            <Dropdown>
+                                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                    Select a simbol
+                                </Dropdown.Toggle>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item onClick = {() => this.props.setCurrentSymbol('BTCUSDT')}>BTCUSDT</Dropdown.Item>
+                                    <Dropdown.Item onClick = {() => this.props.setCurrentSymbol('BNBBTC')}>BNBBTC</Dropdown.Item>
+                                    <Dropdown.Item onClick = {() => this.props.setCurrentSymbol('ETHBTC')}>ETHBTC</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </Col>
+                        <Col sm={12} md={4} className="last-updates__list p-3">
+                            <ListGroup>
+                                <ListGroup.Item>
+                                    <h2>Bids</h2>
+                                </ListGroup.Item>
+                                {   this.props.diff.bidsDiff.map((item, i) => {
+                                        return <ListGroup.Item key={i} className="last-updates-item">
+                                                    <span>
+                                                        <strong>Price:  </strong>{item[0]}
+                                                    </span> 
+                                                    <span>
+                                                        <strong>Amount: </strong>{item[1]}
+                                                    </span></ListGroup.Item>
+                                })}                     
+                            </ListGroup>                          
+                        </Col>
+                        <Col sm={12} md={4} className="last-updates__list p-3">
+                            <ListGroup>
+                                <ListGroup.Item>
+                                    <h2>Asks</h2>
+                                </ListGroup.Item>
+                                {   this.props.diff.asksDiff.map((item, i) => {
+                                        return  <ListGroup.Item key={i} className="last-updates-item">
+                                                    <span>
+                                                        <strong>Price:  </strong>{item[0]}
+                                                    </span> 
+                                                    <span>
+                                                        <strong>Amount:  </strong>{item[1]}
+                                                    </span></ListGroup.Item>
+                                })}                     
+                            </ListGroup>
+                        </Col> 
+                    </Row>                               
+                </Container>
+            </div>       
+                 
         )
     }    
 }

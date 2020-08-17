@@ -1,0 +1,5 @@
+@media(max-width: 580px){
+    .app__title {
+        display: none;
+    }
+}

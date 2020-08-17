@@ -21,7 +21,11 @@
 .table thead th {
     border-bottom: 0;
 }
-    
+
+.table__title th {
+    background-color: #fff;
+    padding: 1px;
+}
 
 
 

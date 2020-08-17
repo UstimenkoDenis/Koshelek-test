@@ -1,0 +1,8 @@
+.last-updates-item {
+    display: flex;
+    justify-content: space-around;
+}   
+.wrapper {
+    overflow-y: scroll;
+    height: 80%;
+}

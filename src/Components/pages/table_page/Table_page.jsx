@@ -13,12 +13,12 @@ class Table_page extends Component {
         super(props)       
    
         this.state = {           
-            tableHeight: document.documentElement.clientHeight - 10,
-            tableBodyHeight: '95%',
-            tableThWidth: 200,
-            tableTdWidth: 200,
-            tableFiveTdWidth: 200,
-            tableSixTdWidth: 200,
+            tableHeight: document.documentElement.clientHeight-document.documentElement.clientHeight*30/100,            
+            tableBodyHeight: '90%',
+            tableThWidth: document.documentElement.clientWidth/6,
+            tableTdWidth: document.documentElement.clientWidth/6,
+            tableFiveTdWidth: 'auto',
+            tableSixTdWidth: 'auto',
             mobile: false
         }
 
@@ -83,12 +83,16 @@ class Table_page extends Component {
                 <Error/>
             )
         }
-       const { mobile, tableThWidth, tableTdWidth, tableFiveTdWidth, tableSixTdWidth, tableHeight, tableBodyHeight} = this.state
+       const { mobile, tableThWidth, tableTdWidth, tableFiveTdWidth, tableSixTdWidth, tableHeight,  tableBodyHeight} = this.state
         return (                                        
-                <>
-                    <div>{this.props.currentSymbol}</div>
-                    <Table height={tableHeight} className="table" striped bordered hover>           
+                <>                    
+                    <Table height={tableHeight}  className="table"  striped bordered hover>  
+                        <caption>{this.props.currentSymbol}</caption>         
                         <thead className="table__header">
+                            <tr className="table__title ">
+                                <th col-span="2">Bids</th>
+                                <th col-span="2">Asks</th>
+                            </tr>
                             <tr>
                                 <th width={tableThWidth}>Amount</th>
                                 <th width={tableThWidth}>Price</th>
@@ -116,13 +120,12 @@ class Table_page extends Component {
                                 bidsAndAsks.map( (item, i) => {                                    
                                     return (
                                         <tr key={i}>
-                                            <td width={tableTdWidth}>{item[1]}</td>
-                                            <td width={tableTdWidth}>{item[0]}</td>
-                                            <td width={tableTdWidth} className="d-none d-lg-block" >{item[0]*item[1]}</td>
-                                            <td width={tableTdWidth}>{item[3]}</td>
-                                            <td width={tableFiveTdWidth}>{item[2]}</td>
-                                            <td width={tableSixTdWidth} className="d-none d-lg-block">{item[2]*item[3]}</td> 
-                                                    
+                                            <td width={tableTdWidth}>{(+item[1]).toFixed(4)}</td>
+                                            <td width={tableTdWidth}>{(+item[0]).toFixed(4)}</td>
+                                            <td width={tableTdWidth} className="d-none d-lg-block" >{(item[0]*item[1]).toFixed(4)}</td>
+                                            <td width={tableTdWidth}>{(+item[3]).toFixed(4)}</td>
+                                            <td width={tableFiveTdWidth}>{(+item[2]).toFixed(4)}</td>
+                                            <td width={tableSixTdWidth} className="d-none d-lg-block">{(item[2]*item[3]).toFixed(4)}</td>                                                     
                                         </tr>)                            
                                 }) }                                                                          
                         </tbody>                             
