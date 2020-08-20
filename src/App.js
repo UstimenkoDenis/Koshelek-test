@@ -15,7 +15,7 @@ const App = () => {
     <Router>
       <div className="app">
         <Header/>        
-        <div className="app__content">
+        <div className="app-content">
           <Switch>
             <Route path='/' exact component={null}/> 
             <Route path='/table' component={AsyncTable}/>

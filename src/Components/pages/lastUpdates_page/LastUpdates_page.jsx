@@ -14,7 +14,7 @@ class LastUpdates_page extends Component {
     render() {       
         
         return (  
-            <div className="wrapper">
+            <div className="last-updates">
                 <Container fluid>
                     <Row className="m-2">
                         <h4>Last updates in {this.symbolLabel}</h4>
@@ -40,12 +40,12 @@ class LastUpdates_page extends Component {
                                     <h2>Bids</h2>
                                 </ListGroup.Item>
                                 {   this.props.diff.bidsDiff.map((item, i) => {
-                                        return <ListGroup.Item key={i} className="last-updates-item">
+                                        return <ListGroup.Item key={i} className="last-updates__item">
                                                     <span>
-                                                        <strong>Price:  </strong>{item[0]}
+                                                        <strong>Price:  </strong>{(+item[0]).toFixed(4)}
                                                     </span> 
                                                     <span>
-                                                        <strong>Amount: </strong>{item[1]}
+                                                        <strong>Amount: </strong>{(+item[1]).toFixed(4)}
                                                     </span></ListGroup.Item>
                                 })}                     
                             </ListGroup>                          
@@ -56,12 +56,12 @@ class LastUpdates_page extends Component {
                                     <h2>Asks</h2>
                                 </ListGroup.Item>
                                 {   this.props.diff.asksDiff.map((item, i) => {
-                                        return  <ListGroup.Item key={i} className="last-updates-item">
+                                        return  <ListGroup.Item key={i} className="last-updates__item">
                                                     <span>
-                                                        <strong>Price:  </strong>{item[0]}
+                                                        <strong>Price:  </strong>{(+item[0]).toFixed(4)}
                                                     </span> 
                                                     <span>
-                                                        <strong>Amount:  </strong>{item[1]}
+                                                        <strong>Amount:  </strong>{(+item[1]).toFixed(4)}
                                                     </span></ListGroup.Item>
                                 })}                     
                             </ListGroup>

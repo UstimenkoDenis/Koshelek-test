@@ -17,11 +17,13 @@ class Table_page extends Component {
             tableBodyHeight: '90%',
             tableThWidth: document.documentElement.clientWidth/6,
             tableTdWidth: document.documentElement.clientWidth/6,
-            tableFiveTdWidth: 'auto',
-            tableSixTdWidth: 'auto',
-            mobile: false
+            tableFiveTdWidth: document.documentElement.clientWidth/6,
+            tableSixTdWidth: document.documentElement.clientWidth/6,
+            mobile: false,
+            colspan: 3
         }
 
+        
         this.props.snapshotRequested();          
 
         const {SDK, currentSymbol} = this.props; 
@@ -56,7 +58,20 @@ class Table_page extends Component {
             
         }
     }
-     
+    componentWillMount() {
+        if(document.documentElement.clientWidth <= 995) {
+            this.setState({ 
+                mobile: true, 
+                colspan: 2,
+                tableThWidth: document.documentElement.clientWidth/4,
+                tableTdWidth: document.documentElement.clientWidth/4,
+            })
+        } else this.setState({ 
+            mobile: false, 
+            colspan: 3,
+            tableThWidth: document.documentElement.clientWidth/6,
+            tableTdWidth: document.documentElement.clientWidth/6,})
+    } 
     componentWillUnmount(){
         this.updates.close(1000,'the work is done')
     }
@@ -83,15 +98,17 @@ class Table_page extends Component {
                 <Error/>
             )
         }
-       const { mobile, tableThWidth, tableTdWidth, tableFiveTdWidth, tableSixTdWidth, tableHeight,  tableBodyHeight} = this.state
-        return (                                        
+       const { mobile, colspan, tableThWidth, tableTdWidth, tableFiveTdWidth, tableSixTdWidth, tableHeight,  tableBodyHeight} = this.state
+        
+       
+       return (                                        
                 <>                    
-                    <Table height={tableHeight}  className="table"  striped bordered hover>  
+                    <Table height={tableHeight}  className="table"  striped hover>  
                         <caption>{this.props.currentSymbol}</caption>         
                         <thead className="table__header">
                             <tr className="table__title ">
-                                <th col-span="2">Bids</th>
-                                <th col-span="2">Asks</th>
+                                <th colspan={colspan}>Bids</th>
+                                <th colspan={colspan}>Asks</th>
                             </tr>
                             <tr>
                                 <th width={tableThWidth}>Amount</th>
@@ -102,21 +119,36 @@ class Table_page extends Component {
                                 <th width={tableThWidth} className="d-none d-lg-block">Total</th>
                             </tr>
                         </thead>                          
-                        <tbody height={tableBodyHeight} className="table__body" onMouseOver = {() =>{
-                                   if(mobile) {
-                                        this.setState({                                       
-                                            tableFiveTdWidth: 100,
-                                            tableSixTdWidth: 200,
-                                        })  
-                                   } else {
-                                        this.setState({                                       
-                                            tableFiveTdWidth: 200,
-                                            tableSixTdWidth: 100,
-                                        })
-                                   }
-                                                     
-                        } }>  
-                            {  
+                        <tbody  
+                            height={tableBodyHeight} 
+                            className="table__body" 
+                            onMouseOver = { () =>{
+                                if(mobile) {
+                                    this.setState({                                       
+                                        tableFiveTdWidth: document.documentElement.clientWidth/4-17                                       
+                                    })  
+                                } else {
+                                    this.setState({                                       
+                                        tableFiveTdWidth: document.documentElement.clientWidth/6,
+                                        tableSixTdWidth: document.documentElement.clientWidth/6-17,
+                                    })
+                                }
+                                                    
+                            } }
+                            onMouseOut = { () => { 
+                                if(mobile) {
+                                    this.setState({                                       
+                                        tableFiveTdWidth: document.documentElement.clientWidth/4,
+                                        tableSixTdWidth: document.documentElement.clientWidth/4,
+                                    })  
+                                } else {
+                                    this.setState({                                       
+                                        tableFiveTdWidth: document.documentElement.clientWidth/6,
+                                        tableSixTdWidth: document.documentElement.clientWidth/6,
+                                    })
+                                }
+                            } }>  
+                                {  
                                 bidsAndAsks.map( (item, i) => {                                    
                                     return (
                                         <tr key={i}>

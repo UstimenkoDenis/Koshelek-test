@@ -4,8 +4,7 @@
   flex-direction: column;  
   height: 100vh;
 }
-.app__content { 
-  background-color: rgb(216, 212, 187);
+.app-content {  
   flex: 1 1 auto;  
 }
 
