@@ -22,7 +22,6 @@ class Table_page extends Component {
             mobile: false,
             colspan: 3
         }
-
         
         this.props.snapshotRequested();          
 
@@ -58,6 +57,7 @@ class Table_page extends Component {
             
         }
     }
+
     componentWillMount() {
         if(document.documentElement.clientWidth <= 995) {
             this.setState({ 
@@ -72,6 +72,7 @@ class Table_page extends Component {
             tableThWidth: document.documentElement.clientWidth/6,
             tableTdWidth: document.documentElement.clientWidth/6,})
     } 
+
     componentWillUnmount(){
         this.updates.close(1000,'the work is done')
     }
@@ -107,8 +108,8 @@ class Table_page extends Component {
                         <caption>{this.props.currentSymbol}</caption>         
                         <thead className="table__header">
                             <tr className="table__title ">
-                                <th colspan={colspan}>Bids</th>
-                                <th colspan={colspan}>Asks</th>
+                                <th colSpan={colspan}>Bids</th>
+                                <th colSpan={colspan}>Asks</th>
                             </tr>
                             <tr>
                                 <th width={tableThWidth}>Amount</th>

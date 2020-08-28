@@ -1,21 +1,18 @@
 .table {
     display: block;
-    padding: 2%;
-    
+    padding: 2%;    
 }
 .table__header {    
     display: block;
-
     background-color: #60a9ca;   
 } 
 .table__body {
-   display: block;
-    
+    max-width: 100%;
+   display: block;    
    overflow: hidden;
 } 
 .table__body:hover {
-    overflow-y: scroll;
-    
+    overflow-y: scroll;    
 }
 
 .table thead th {
