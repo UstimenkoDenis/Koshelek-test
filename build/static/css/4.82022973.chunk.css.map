@@ -1,0 +1,1 @@
+{"version":3,"sources":["LastUpdates_page.css"],"names":[],"mappings":"AAAA,cACI,iBAAkB,CAClB,UACJ,CACA,oBACI,YAAa,CACb,4BACJ","file":"4.82022973.chunk.css","sourcesContent":[".last-updates {\r\n    overflow-y: scroll;\r\n    height: 80%;\r\n}\r\n.last-updates__item {\r\n    display: flex;\r\n    justify-content: space-around;\r\n}   \r\n"]}
