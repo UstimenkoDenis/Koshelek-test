@@ -1,3 +1,14 @@
+## Work on the terms of reference from the company Koshelek.ru
+
+The technical task is in the file Front-задача.txt
+
+## Работа по техническому заданию от компании Koshelek.ru
+
+Техническое задание находится в файле Front-задача.txt
+
+This project was bootstrapped with Create React App.
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
