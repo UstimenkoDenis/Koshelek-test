@@ -2,9 +2,21 @@
 
 The technical task is in the file Front-задача.txt
 
+Look at the work of the program
+
+https://nameless-refuge-44714.herokuapp.com/
+
 ## Работа по техническому заданию от компании Koshelek.ru
 
 Техническое задание находится в файле Front-задача.txt
+
+ Посмотреть на работу программы
+ 
+https://nameless-refuge-44714.herokuapp.com/
+
+
+
+
 
 This project was bootstrapped with Create React App.
 
